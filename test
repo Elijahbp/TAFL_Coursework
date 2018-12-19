@@ -15,3 +15,26 @@
 			k ass 12:
 			x2 ass true;
 }
+
+
+
+{
+	a,b,c,h:  integer;
+	k,l,m: real;
+	x1,x2,x3: boolean;
+	a ass 24O;
+	b ass 010010110B
+	c ass 6134d;
+	h ass 515A1Dh;
+	h ass 1412
+	m ass 15.32E-42
+	if a < m then
+		for m ass 0.412E-32 to 53 do
+			read ( a, m, l, x1, x3)
+	else
+		while (x2 <> x1) do
+			write ( 153, 34e12, m,k):
+			k ass 12:
+			x2 ass false:
+			x2 ass true;
+}

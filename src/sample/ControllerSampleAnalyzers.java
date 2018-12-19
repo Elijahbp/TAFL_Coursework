@@ -51,7 +51,7 @@ public class ControllerSampleAnalyzers implements Initializable{
             txtAreaIdentificators.setText(totalInformation.getTableIndices().toString());
 
             totalInformation.getTokenList().forEach(token -> {
-                stringBuilder.append(token.getBriefInformation());
+                stringBuilder.append(token.getBriefInformation()).append(" ");
             });
             txtAreaResultListLexem.setText(stringBuilder.toString());
             txtAreaResultAnalysis.setText("Проверка прошла успешно!");

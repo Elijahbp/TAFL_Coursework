@@ -5,22 +5,22 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="751.0" prefWidth="1203.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSampleAnalyzers">
+<AnchorPane prefHeight="717.0" prefWidth="1203.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSampleAnalyzers">
    <children>
-      <Button fx:id="btnAnalyzer" layoutX="334.0" layoutY="65.0" mnemonicParsing="false" onAction="#analyzeProgram" prefHeight="200.0" prefWidth="75.0" text="analyze" />
-      <Label layoutX="14.0" layoutY="40.0" text="Print your code here:" />
-      <TextArea fx:id="txtAreaServiceWords" editable="false" layoutX="334.0" layoutY="356.0" prefHeight="381.0" prefWidth="200.0" />
-      <TextArea fx:id="txtAreaLimiters" editable="false" layoutX="542.0" layoutY="356.0" prefHeight="381.0" prefWidth="200.0" />
-      <TextArea fx:id="txtAreaNumbers" editable="false" layoutX="749.0" layoutY="356.0" prefHeight="381.0" prefWidth="200.0" />
-      <TextArea fx:id="txtAreaIdentificators" editable="false" layoutX="963.0" layoutY="356.0" prefHeight="381.0" prefWidth="226.0" />
-      <TextArea fx:id="txtAreaResultAnalysis" editable="false" layoutX="370.0" layoutY="272.0" prefHeight="38.0" prefWidth="817.0" />
-      <TextArea fx:id="txtAreaFieldCode" layoutX="14.0" layoutY="65.0" prefHeight="669.0" prefWidth="313.0" />
-      <TextArea fx:id="txtAreaResultListLexem" editable="false" layoutX="419.0" layoutY="65.0" prefHeight="200.0" prefWidth="768.0" wrapText="true" />
-      <Label layoutX="419.0" layoutY="40.0" text="List lexem's" />
-      <Label layoutX="383.0" layoutY="332.0" text="Table Service's Word's" />
-      <Label layoutX="605.0" layoutY="332.0" text="Table Limiter's" />
-      <Label layoutX="809.0" layoutY="332.0" text="Table Number's" />
-      <Label layoutX="1039.0" layoutY="332.0" text="Table Idex's" />
-      <Label layoutX="334.0" layoutY="283.0" text="Result:" />
+      <Button fx:id="btnAnalyzer" layoutX="332.0" layoutY="32.0" mnemonicParsing="false" onAction="#analyzeProgram" prefHeight="200.0" prefWidth="75.0" text="analyze" />
+      <Label layoutX="12.0" layoutY="7.0" text="Print your code here:" />
+      <TextArea fx:id="txtAreaServiceWords" editable="false" layoutX="332.0" layoutY="323.0" prefHeight="381.0" prefWidth="200.0" />
+      <TextArea fx:id="txtAreaLimiters" editable="false" layoutX="540.0" layoutY="323.0" prefHeight="381.0" prefWidth="200.0" />
+      <TextArea fx:id="txtAreaNumbers" editable="false" layoutX="747.0" layoutY="323.0" prefHeight="381.0" prefWidth="200.0" />
+      <TextArea fx:id="txtAreaIdentificators" editable="false" layoutX="961.0" layoutY="323.0" prefHeight="381.0" prefWidth="231.0" />
+      <TextArea fx:id="txtAreaResultAnalysis" editable="false" layoutX="368.0" layoutY="243.0" prefHeight="38.0" prefWidth="822.0" />
+      <TextArea fx:id="txtAreaFieldCode" layoutX="12.0" layoutY="32.0" prefHeight="672.0" prefWidth="313.0" />
+      <TextArea fx:id="txtAreaResultListLexem" editable="false" layoutX="417.0" layoutY="32.0" prefHeight="200.0" prefWidth="773.0" wrapText="true" />
+      <Label layoutX="417.0" layoutY="7.0" text="List lexem's" />
+      <Label layoutX="373.0" layoutY="299.0" text="Table Service's Word's" />
+      <Label layoutX="602.0" layoutY="299.0" text="Table Limiter's" />
+      <Label layoutX="805.0" layoutY="299.0" text="Table Number's" />
+      <Label layoutX="1037.0" layoutY="299.0" text="Table Idex's" />
+      <Label layoutX="332.0" layoutY="254.0" text="Result:" />
    </children>
 </AnchorPane>
