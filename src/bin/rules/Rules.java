@@ -56,7 +56,6 @@ public class Rules {
         //конец возможного повтора
     }
 
-
     //Проверка на описание
     private boolean isDescription() throws Exception {
         boolean isDescripption = false;
@@ -109,7 +108,6 @@ public class Rules {
         });
         return true;
     }
-
 
     //Проверка на оператор
     private boolean isOperator() throws Exception {
@@ -367,7 +365,7 @@ public class Rules {
         }
         skipLineTranslation();
         if (!listIteratorsTokens.next().getItem().equals(")")){
-            throw new Exception("После выражения , должен идти огранечитель - )!");
+            throw new Exception("После выражения должен идти огранечитель - )!");
         }
         return isOutputOperator;
     }
@@ -546,21 +544,6 @@ public class Rules {
             listIteratorsTokens.previous();
             return false;
         }
-    }
-
-    //Проверка на число
-    private boolean isNumber(String word){
-        return false;
-    }
-
-    //Проверка на логическую константу
-    private boolean isLogicConstant(String word){
-        return false;
-    }
-
-    //Проверка на унарные операции
-    private boolean isUnaryOperation(String word){
-        return false;
     }
 
 
