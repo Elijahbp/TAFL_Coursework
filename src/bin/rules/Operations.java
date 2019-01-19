@@ -7,42 +7,42 @@ import bin.Tables.TableServiceWords;
 
 public class Operations {
     private final static Token[] Attitude = {
-            new TableLimiters().getElement("<>"),
-            new TableLimiters().getElement("<="),
-            new TableLimiters().getElement("="),
-            new TableLimiters().getElement(">"),
-            new TableLimiters().getElement("<"),
-            new TableLimiters().getElement(">="),
+            TableLimiters.getElement("<>"),
+            TableLimiters.getElement("<="),
+            TableLimiters.getElement("="),
+            TableLimiters.getElement(">"),
+            TableLimiters.getElement("<"),
+            TableLimiters.getElement(">="),
     };
 
     private final static Token[] Addition = {
-            new TableLimiters().getElement("+"),
-            new TableLimiters().getElement("-"),
-            new TableServiceWords().getElement("or")
+            TableLimiters.getElement("+"),
+            TableLimiters.getElement("-"),
+            TableServiceWords.getElement("or")
     };
 
     private final static Token[] Multiplication = {
-            new TableLimiters().getElement("*"),
-            new TableLimiters().getElement("/"),
-            new TableServiceWords().getElement("and")
+            TableLimiters.getElement("*"),
+            TableLimiters.getElement("/"),
+            TableServiceWords.getElement("and")
     };
 
     //Группа унарных операторов
     private final static Token[] unaryOperation = {
-            new TableServiceWords().getElement("not")
+            TableServiceWords.getElement("not")
     };
 
     //Группа типов данных
     private final static Token[] typesData = {
-            new TableServiceWords().getElement("integer"),
-            new TableServiceWords().getElement("real"),
-            new TableServiceWords().getElement("boolean")
+            TableServiceWords.getElement("integer"),
+            TableServiceWords.getElement("real"),
+            TableServiceWords.getElement("boolean")
     };
 
     //Группа логических констант
     private final static Token[] logicConstant = {
-            new TableServiceWords().getElement("true"),
-            new TableServiceWords().getElement("false")
+            TableServiceWords.getElement("true"),
+            TableServiceWords.getElement("false")
     };
 
     //Проверка на группы отношения

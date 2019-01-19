@@ -12,30 +12,27 @@ import java.util.regex.Pattern;
 
 // Класс Numeric - мой класс по образованию чисел!
 //
-public class TableNumbers implements Tables<Numeric> {
+public class TableNumbers {
 
-    private List<Number> numbers;
-    private List<Numeric> numericList;
+    private static List<Number> numbers;
+    private static List<Numeric> numericList;
     public TableNumbers(){
         numbers = new ArrayList();
         numericList = new ArrayList<>();
     }
 
-    @Override
+
     public boolean contains(String number){
         return numbers.contains(number);
     }
-
-    @Override
+    
     public List<Numeric> getListElements() {
-        return this.numericList;
+        return numericList;
     }
 
-
-    @Override
-    public Numeric getElement(String number){
+    public static Numeric getElement(String number){
         Number numeric1 = parseNumber(number);
-        for (Numeric numeric:this.numericList) {
+        for (Numeric numeric:numericList) {
             if (numeric.getItem().equals(numeric1)){
                 return numeric;
             }

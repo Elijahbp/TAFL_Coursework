@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TableIndices implements Tables<Index> {
+public class TableIndices {
 
     private ArrayList<Index> indices;
 
@@ -32,8 +32,8 @@ public class TableIndices implements Tables<Index> {
         Matcher matcher = pattern.matcher(index);
         return matcher.matches();
     }
-    @Override
-    public boolean contains(String index){
+
+    boolean contains(String index){
         for (Index index1 :indices ) {
             if (index1.getItem().equals(index)){
                 return true;
@@ -43,12 +43,12 @@ public class TableIndices implements Tables<Index> {
     }
 
 
-    @Override
+
     public List<Index> getListElements() {
         return indices;
     }
 
-    @Override
+
     public Index getElement(String item) {
         if (!contains(item)){
             try {

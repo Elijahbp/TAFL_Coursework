@@ -7,7 +7,7 @@ import bin.Items.Token;
 import java.util.Arrays;
 import java.util.List;
 
-public class TableServiceWords implements Tables<Token> {
+public class TableServiceWords {
     private final static Token[] serviceWords= {
             new Token("or",  IndicesTables.SERVICE_WORD,0),
             new Token("and",IndicesTables.SERVICE_WORD,1),
@@ -34,8 +34,8 @@ public class TableServiceWords implements Tables<Token> {
         return serviceWords;
     }
 
-    @Override
-    public boolean contains(String word){
+
+    public static boolean contains(String word){
         for (int i = 0; i < serviceWords.length; i++) {
             if (serviceWords[i].getItem().equals(word)){
                 return true;
@@ -44,13 +44,13 @@ public class TableServiceWords implements Tables<Token> {
         return false;
     }
 
-    @Override
-    public  List<Token> getListElements(){
+
+    public static List<Token> getListElements(){
         return Arrays.asList(serviceWords);
     }
 
-    @Override
-    public Token getElement(String word) {
+
+    public static Token getElement(String word) {
         if (!contains(word)){
             try {
                 throw new Exception("Данного значения:" +word+" нет в таблице сервисных слов");

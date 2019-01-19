@@ -6,7 +6,7 @@ import bin.Items.Token;
 import java.util.Arrays;
 import java.util.List;
 
-public class TableLimiters implements Tables<Token> {
+public class TableLimiters {
     private final static Token[] limiters= {
             new Token("<>",  IndicesTables.LIMITERS,0),
             new Token("=",IndicesTables.LIMITERS,1),
@@ -35,8 +35,7 @@ public class TableLimiters implements Tables<Token> {
         return limiters;
     }
 
-    @Override
-    public boolean contains(String word){
+    public static boolean contains(String word){
         for (int i = 0; i < limiters.length; i++) {
             if (limiters[i].getItem().equals(word)){
                 return true;
@@ -45,14 +44,13 @@ public class TableLimiters implements Tables<Token> {
         return false;
     }
 
-    @Override
     public List<Token> getListElements(){
         return Arrays.asList(limiters);
     }
 
 
-    @Override
-    public  Token getElement(String limiter) {
+
+    public static Token getElement(String limiter) {
         if (!contains(limiter)){
             try {
                 throw new Exception("Данного значения:" +limiter+" нет в таблице огранечителей");
