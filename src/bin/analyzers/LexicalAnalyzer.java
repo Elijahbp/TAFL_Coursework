@@ -99,6 +99,8 @@ public class LexicalAnalyzer {
                                 strings.add(bufStr);
                             }else if ((bufStr.matches("^[0-9]+\\.[Ee][0-9]+$"))){
                                 throw  new Exception("После . должно быть знчение!");
+                            }else {
+                                strings.add(bufStr);
                             }
                         }
                         else if (bufStr.equals("<")){
