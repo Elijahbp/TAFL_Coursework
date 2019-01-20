@@ -1,7 +1,7 @@
 {
-	a,b,c,h:  integer;
-	k,l,m: real;
-	x1,x2,x3: boolean;
+	% a,b,c,h;
+	$ k,l,m;
+	! x1,x2,x3;
 	a ass 24O;
 	b ass 010010110B
 	c ass 6134d;
@@ -19,9 +19,9 @@
 
 
 {
-	a,b,c,h:  integer;
-	k,l,m: real;
-	x1,x2,x3: boolean;
+	% a,b,c,h;
+	$ k,l,m;
+	! x1,x2,x3;
 	a ass 24O;
 	b ass 010010110B
 	c ass 6134d;

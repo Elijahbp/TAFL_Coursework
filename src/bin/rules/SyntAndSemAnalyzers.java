@@ -6,24 +6,17 @@ import bin.Enumirations.TypesData;
 import bin.Items.Index;
 import bin.Items.Token;
 import bin.Tables.TotalInformation;
-import bin.analyzers.LexicalAnalyzer;
 
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class Rules {
-    public Rules(){}
+public class SyntAndSemAnalyzers {
+    public SyntAndSemAnalyzers(){}
 
 
     private ArrayList<Token> tokens;
     private ListIterator<Token> listIteratorsTokens;
 
-    public static void main(String[] args) throws Exception {
-        //{ grt,aw3 : integer ; fer : boolean ; for grt ass aw3 to grt do while not true do if (false then fer ass true ; }
-        //{ grt,awt,ant : boolean ; if (awt = grt) then grt ass ant; }
-
-    }
 
     public TotalInformation scanner(TotalInformation totalInformation) throws Exception {
         this.tokens = totalInformation.getTokenList();
@@ -45,11 +38,7 @@ public class Rules {
             if (listIteratorsTokens.next().getItem().equals("}") & isProgram){
                 return true;
             }else listIteratorsTokens.previous();
-            if ((isDescription() || (isOperator() & listIteratorsTokens.next().getItem().equals(";")))){
-                isProgram = true;
-            }else {
-                isProgram = false;
-            }
+            isProgram = (isDescription() || (isOperator() & listIteratorsTokens.next().getItem().equals(";")));
         }
         //
         return isProgram;
@@ -59,17 +48,22 @@ public class Rules {
     //Проверка на описание
     private boolean isDescription() throws Exception {
         boolean isDescripption = false;
-        boolean construction = false;
-        //TODO сделать проверку на множественные повторения
-        ArrayList<Index> indices = new ArrayList<>();
+
+        Token tokenData = listIteratorsTokens.next();
+        if (!Operations.isTypesData(tokenData)) {
+            listIteratorsTokens.previous();
+            return isDescripption;
+        }
 
         skipLineTranslation();
         Token token = listIteratorsTokens.next();
         Token tokenB;
         if (token.getTableIndex() != IndicesTables.INDICES) {
-            listIteratorsTokens.previous();
-            return isDescripption;
+            throw new Exception("После определения типа данных необходимо указать идентификатор(-ы)");
         }
+
+        //TODO сделать проверку на множественные повторения
+        ArrayList<Index> indices = new ArrayList<>();
         ((Index) token).setDescriptionsStates(DescriptionsStates.DESCRIBED);
         indices.add((Index) token);
 
@@ -79,7 +73,6 @@ public class Rules {
             if (token.getItem().equals(",") & tokenB.getTableIndex() == IndicesTables.INDICES) {
                 ((Index)tokenB).setDescriptionsStates(DescriptionsStates.DESCRIBED);
                 indices.add((Index) tokenB);
-                construction = true;
             }else {
                 listIteratorsTokens.previous();
                 listIteratorsTokens.previous();
@@ -87,19 +80,6 @@ public class Rules {
             }
         }
 
-        if (!listIteratorsTokens.next().getItem().equals(":") ) {
-            if (construction){
-                throw new Exception("Пропущен знак : перед определением типа данных");
-            }else {
-                listIteratorsTokens.previous();
-                listIteratorsTokens.previous();
-                return false;
-            }
-        }
-        Token tokenData = listIteratorsTokens.next();
-        if (!Operations.isTypesData(tokenData)) {
-            throw new Exception("Тип данных не определен");
-        }
         if (!(listIteratorsTokens.next().getItem().equals(";") )) {
             throw new Exception("Пропущен знак конца строки - ;");
         }
@@ -129,10 +109,7 @@ public class Rules {
         else if (isOutputOperator()){
             return true;
         }
-        else if (isCompositeOperator()){
-            return true;
-        }
-        return false;
+        else return isCompositeOperator();
     }
 
     //Проверка на составной оператор
@@ -167,7 +144,7 @@ public class Rules {
         if (((Index)next).getDescriptionsStates().equals(DescriptionsStates.NOT_DESCRIBED)){
             throw new Exception("Идентификатор: " +next.getItem()+" - не инициализирован!");
         }
-        if (((Index)next).getTypeData().equals(TypesData.NON_DEFINITELY)){
+        if (next.getTypeData().equals(TypesData.NON_DEFINITELY)){
             throw new Exception("Тип данных идентификатора: "+ next.getItem()+" - не определён!");
         }
         if (!listIteratorsTokens.next().getItem().equals("ass")){
@@ -176,16 +153,16 @@ public class Rules {
         }
 
         bufTypesData = isExpression();
-        if (next.getTypeData().equals(TypesData.REAL)){
-            if (bufTypesData.equals(TypesData.REAL) | bufTypesData.equals(TypesData.INTEGER)){
+        if (next.getTypeData().equals(TypesData.symbDECIM)){
+            if (bufTypesData.equals(TypesData.symbDECIM) | bufTypesData.equals(TypesData.symbINT)){
                 return next.getTypeData();
             }else throw new Exception("Нельзя присвоить типу "+next.getTypeData()+" тип " + bufTypesData);
-        }else if (next.getTypeData().equals(TypesData.INTEGER)){
-            if (bufTypesData.equals(TypesData.INTEGER)){
+        }else if (next.getTypeData().equals(TypesData.symbINT)){
+            if (bufTypesData.equals(TypesData.symbINT)){
                 return next.getTypeData();
             }else throw new Exception("Нельзя присвоить типу "+next.getTypeData()+" тип " + bufTypesData);
-        }else if (next.getTypeData().equals(TypesData.BOOLEAN)){
-            if (bufTypesData.equals(TypesData.BOOLEAN)){
+        }else if (next.getTypeData().equals(TypesData.symbBOOL)){
+            if (bufTypesData.equals(TypesData.symbBOOL)){
                 return next.getTypeData();
             }else throw new Exception("Нельзя присвоить типу "+next.getTypeData()+" тип " + bufTypesData);
         }
@@ -201,7 +178,7 @@ public class Rules {
         }
         skipLineTranslation();
         TypesData typesData = isExpression();
-        if (typesData.equals(TypesData.NON_DATA) | !typesData.equals(TypesData.BOOLEAN)){
+        if (typesData.equals(TypesData.NON_DATA) | !typesData.equals(TypesData.symbBOOL)){
             throw new Exception("После оператора if должно быть выражение типа boolean!");
         }
         skipLineTranslation();
@@ -235,7 +212,7 @@ public class Rules {
         }
         skipLineTranslation();
         TypesData typesData = isOperatorAssignment();
-        if (typesData.equals(TypesData.NON_DATA)|typesData.equals(TypesData.BOOLEAN)) {
+        if (typesData.equals(TypesData.NON_DATA)|typesData.equals(TypesData.symbBOOL)) {
             throw new Exception("После оператора for должен идти оператор присваивания (и не boolean)!");
         }
         skipLineTranslation();
@@ -245,7 +222,7 @@ public class Rules {
         skipLineTranslation();
         typesData = isExpression();
         skipLineTranslation();
-        if (typesData.equals(TypesData.NON_DATA)|typesData.equals(TypesData.BOOLEAN)){
+        if (typesData.equals(TypesData.NON_DATA)|typesData.equals(TypesData.symbBOOL)){
             throw new Exception("После служебного слова to должно идти выражение (и не boolean!)!");
         }
         skipLineTranslation();
@@ -268,7 +245,7 @@ public class Rules {
         }
         skipLineTranslation();
         typesData = isExpression();
-        if (!typesData.equals(TypesData.BOOLEAN)){
+        if (!typesData.equals(TypesData.symbBOOL)){
             throw new Exception("После служебного слова while должно идти булево выражение!");
         }
         skipLineTranslation();
@@ -383,17 +360,17 @@ public class Rules {
                 listIteratorsTokens.previous();
                 return bufType;
             }
-            if (bufType.equals(TypesData.INTEGER) | bufType.equals(TypesData.REAL)){
+            if (bufType.equals(TypesData.symbINT) | bufType.equals(TypesData.symbDECIM)){
                 bufType = isOperand();
-                if (bufType.equals(TypesData.REAL)| bufType.equals(TypesData.INTEGER)){
-                    return TypesData.BOOLEAN;
+                if (bufType.equals(TypesData.symbDECIM)| bufType.equals(TypesData.symbINT)){
+                    return TypesData.symbBOOL;
                 }
                 else {
                     throw new Exception("Определён неверный тип данных!");
                 }
-            }else if (bufType.equals(TypesData.BOOLEAN)){
+            }else if (bufType.equals(TypesData.symbBOOL)){
                 bufType = isOperand();
-                if (bufType.equals(TypesData.BOOLEAN)){
+                if (bufType.equals(TypesData.symbBOOL)){
                     return bufType;
                 }
                 else {
@@ -417,10 +394,10 @@ public class Rules {
                 listIteratorsTokens.previous();
                 return bufType;
             }
-            if (bufType.equals(TypesData.BOOLEAN)){
+            if (bufType.equals(TypesData.symbBOOL)){
                 if (next.getItem().equals("and")){
                     bufType = isTerm();
-                    if (bufType.equals(TypesData.BOOLEAN)){
+                    if (bufType.equals(TypesData.symbBOOL)){
                         return bufType;
                     }
                     else {
@@ -431,17 +408,17 @@ public class Rules {
                     throw new Exception("Определен неправильный знак выражения!");
                 }
             }
-            else if (bufType.equals(TypesData.INTEGER) | bufType.equals(TypesData.REAL)){
+            else if (bufType.equals(TypesData.symbINT) | bufType.equals(TypesData.symbDECIM)){
                 if (next.getItem().equals("+") | next.getItem().equals("-")){
-                    if (bufType.equals(TypesData.INTEGER)){
+                    if (bufType.equals(TypesData.symbINT)){
                         bufType = isTerm();
-                        if (bufType.equals(TypesData.INTEGER)){
-                            return TypesData.INTEGER;
+                        if (bufType.equals(TypesData.symbINT)){
+                            return TypesData.symbINT;
                         }
-                    }else if (bufType.equals(TypesData.REAL)){
+                    }else if (bufType.equals(TypesData.symbDECIM)){
                         bufType = isTerm();
-                        if (bufType.equals(TypesData.INTEGER) | bufType.equals(TypesData.REAL)){
-                            return TypesData.INTEGER;
+                        if (bufType.equals(TypesData.symbINT) | bufType.equals(TypesData.symbDECIM)){
+                            return TypesData.symbINT;
                         }
                     }
                     throw new Exception("Определен неверный тип данных!");
@@ -467,10 +444,10 @@ public class Rules {
                 listIteratorsTokens.previous();
                 return bufType;
             }
-            if (bufType.equals(TypesData.BOOLEAN)){
+            if (bufType.equals(TypesData.symbBOOL)){
                 if (next.getItem().equals("or")){
                     bufType = isFactor();
-                    if (bufType.equals(TypesData.BOOLEAN)){
+                    if (bufType.equals(TypesData.symbBOOL)){
                         return bufType;
                     }
                     else {
@@ -479,17 +456,17 @@ public class Rules {
                 }
                 else throw new Exception("Определен неверный знак умножения");
             }
-            else if (bufType.equals(TypesData.INTEGER) | bufType.equals(TypesData.REAL)){
+            else if (bufType.equals(TypesData.symbINT) | bufType.equals(TypesData.symbDECIM)){
                 if (next.getItem().equals("*")|next.getItem().equals("/")){
-                    if (bufType.equals(TypesData.INTEGER)){
+                    if (bufType.equals(TypesData.symbINT)){
                         bufType = isTerm();
-                        if (bufType.equals(TypesData.INTEGER)){
-                            return TypesData.INTEGER;
+                        if (bufType.equals(TypesData.symbINT)){
+                            return TypesData.symbINT;
                         }
-                    }else if (bufType.equals(TypesData.REAL)){
+                    }else if (bufType.equals(TypesData.symbDECIM)){
                         bufType = isTerm();
-                        if (bufType.equals(TypesData.INTEGER) | bufType.equals(TypesData.REAL)){
-                            return TypesData.INTEGER;
+                        if (bufType.equals(TypesData.symbINT) | bufType.equals(TypesData.symbDECIM)){
+                            return TypesData.symbINT;
                         }
                     }else{
                         throw new Exception("Определен неверный тип данных!");
@@ -509,7 +486,7 @@ public class Rules {
             if (((Index)token).getDescriptionsStates().equals(DescriptionsStates.NOT_DESCRIBED)){
                 throw new Exception("Идентификатор: "+token.getItem()+" - должен быть определен!");
             }else {
-                return ((Index) token).getTypeData();
+                return token.getTypeData();
             }
         }
         else if(token.getTableIndex().equals(IndicesTables.NUMBERS)){
@@ -517,7 +494,7 @@ public class Rules {
         }
         else if (Operations.isLogicConstant(token)){
             return token.getTypeData();
-        }else if (token.getItem().equals("not") && (isFactor().equals(TypesData.BOOLEAN))){
+        }else if (token.getItem().equals("not") && (isFactor().equals(TypesData.symbBOOL))){
             return token.getTypeData();
         }else {
             typesData = isExpression();

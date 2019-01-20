@@ -43,8 +43,8 @@ public class Token {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("( ").append(item).append(" = ")
-                .append(tableIndex).append(",").append(tokenIndex).append(")");
+        stringBuilder.append("[ ").append(item).append(" - ")
+                .append(tableIndex).append(",").append(tokenIndex).append("]");
         return stringBuilder.toString();
     }
 

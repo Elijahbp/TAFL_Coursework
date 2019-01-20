@@ -1,6 +1,7 @@
 package bin.Tables;
 
 import bin.Enumirations.IndicesTables;
+import bin.Enumirations.TypesData;
 import bin.Items.Token;
 
 import java.util.Arrays;
@@ -26,6 +27,9 @@ public class TableLimiters {
             new Token(";",IndicesTables.LIMITERS,15),
             new Token(",",IndicesTables.LIMITERS,16),
             new Token(".",IndicesTables.LIMITERS,17),
+            new Token("%", TypesData.symbINT,IndicesTables.LIMITERS,17),
+            new Token("!",TypesData.symbBOOL,IndicesTables.LIMITERS,17),
+            new Token("$",TypesData.symbDECIM,IndicesTables.LIMITERS,17),
             new Token("\n",IndicesTables.LIMITERS,18)
     };
 

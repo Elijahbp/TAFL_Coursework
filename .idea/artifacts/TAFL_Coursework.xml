@@ -16,7 +16,7 @@
       </options>
     </properties>
     <root id="root">
-      <element id="archive" name="TAFL_Course.jar">
+      <element id="archive" name="TAFL_Course_7var.jar">
         <element id="module-output" name="TAFL_Course" />
       </element>
     </root>

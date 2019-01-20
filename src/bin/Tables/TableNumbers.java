@@ -16,7 +16,7 @@ public class TableNumbers {
 
     private static List<Number> numbers;
     private static List<Numeric> numericList;
-    public TableNumbers(){
+     TableNumbers(){
         numbers = new ArrayList();
         numericList = new ArrayList<>();
     }
@@ -51,11 +51,11 @@ public class TableNumbers {
         if (n != null){
             numbers.add(n);
             if (n instanceof Integer){
-                this.numericList.add(new Numeric(n, TypesData.INTEGER, getIndexNumber(n)));
+                numericList.add(new Numeric(n, TypesData.symbINT, getIndexNumber(n)));
                 return true;
             }
             else if (n instanceof Double){
-                this.numericList.add(new Numeric(n,TypesData.REAL, getIndexNumber(n)));
+                numericList.add(new Numeric(n,TypesData.symbDECIM, getIndexNumber(n)));
                 return true;
             }
         }
@@ -140,7 +140,7 @@ public class TableNumbers {
         return matcher.matches();
     }
 
-    //Переделать to string!
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

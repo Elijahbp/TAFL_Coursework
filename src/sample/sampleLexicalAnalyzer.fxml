@@ -1,26 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="717.0" prefWidth="1203.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSampleAnalyzers">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="724.0" maxWidth="769.0" prefHeight="724.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSampleAnalyzers">
    <children>
-      <Button fx:id="btnAnalyzer" layoutX="332.0" layoutY="32.0" mnemonicParsing="false" onAction="#analyzeProgram" prefHeight="200.0" prefWidth="75.0" text="analyze" />
-      <Label layoutX="12.0" layoutY="7.0" text="Print your code here:" />
-      <TextArea fx:id="txtAreaServiceWords" editable="false" layoutX="332.0" layoutY="323.0" prefHeight="381.0" prefWidth="200.0" />
-      <TextArea fx:id="txtAreaLimiters" editable="false" layoutX="540.0" layoutY="323.0" prefHeight="381.0" prefWidth="200.0" />
-      <TextArea fx:id="txtAreaNumbers" editable="false" layoutX="747.0" layoutY="323.0" prefHeight="381.0" prefWidth="200.0" />
-      <TextArea fx:id="txtAreaIdentificators" editable="false" layoutX="961.0" layoutY="323.0" prefHeight="381.0" prefWidth="231.0" />
-      <TextArea fx:id="txtAreaResultAnalysis" editable="false" layoutX="368.0" layoutY="243.0" prefHeight="38.0" prefWidth="822.0" />
-      <TextArea fx:id="txtAreaFieldCode" layoutX="12.0" layoutY="32.0" prefHeight="672.0" prefWidth="313.0" />
-      <TextArea fx:id="txtAreaResultListLexem" editable="false" layoutX="417.0" layoutY="32.0" prefHeight="200.0" prefWidth="773.0" wrapText="true" />
-      <Label layoutX="417.0" layoutY="7.0" text="List lexem's" />
-      <Label layoutX="373.0" layoutY="299.0" text="Table Service's Word's" />
-      <Label layoutX="602.0" layoutY="299.0" text="Table Limiter's" />
-      <Label layoutX="805.0" layoutY="299.0" text="Table Number's" />
-      <Label layoutX="1037.0" layoutY="299.0" text="Table Idex's" />
-      <Label layoutX="332.0" layoutY="254.0" text="Result:" />
+      <Label layoutX="113.0" layoutY="16.0" text="Print your code here:" />
+      <TextArea fx:id="txtAreaResultAnalysis" editable="false" layoutX="417.0" layoutY="32.0" prefHeight="38.0" prefWidth="336.0" AnchorPane.rightAnchor="16.0" />
+      <TextArea fx:id="txtAreaFieldCode" layoutX="12.0" layoutY="32.0" prefHeight="675.0" prefWidth="313.0" />
+      <TextArea fx:id="txtAreaResultListLexem" editable="false" focusTraversable="false" layoutX="329.0" layoutY="78.0" prefHeight="200.0" prefWidth="424.0" wrapText="true" />
+      <Label layoutX="568.0" layoutY="16.0" text="Result:" />
+      <VBox layoutX="332.0" layoutY="286.0" prefHeight="422.0" prefWidth="424.0">
+         <children>
+            <TabPane prefHeight="434.0" prefWidth="424.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Table Service's Word's">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="444.0">
+                           <children>
+                              <TextArea fx:id="txtAreaServiceWords" editable="false" prefHeight="393.0" prefWidth="424.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Table Limiter's">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="txtAreaLimiters" editable="false" prefHeight="394.0" prefWidth="424.0" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Table Number's">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="txtAreaNumbers" editable="false" prefHeight="393.0" prefWidth="424.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Table Idex's">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="txtAreaIdentificators" editable="false" prefHeight="393.0" prefWidth="424.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children></VBox>
+      <Button fx:id="btnAnalyzer" layoutX="332.0" layoutY="32.0" mnemonicParsing="false" onAction="#analyzeProgram" prefHeight="38.0" prefWidth="80.0" text="scanner" />
    </children>
 </AnchorPane>

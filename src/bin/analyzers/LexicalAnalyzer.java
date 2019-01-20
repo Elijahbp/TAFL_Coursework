@@ -1,13 +1,13 @@
 package bin.analyzers;
 
 
-import bin.Items.Index;
-import bin.Items.Numeric;
 import bin.Items.Token;
+import bin.Tables.TableLimiters;
+import bin.Tables.TableNumbers;
+import bin.Tables.TableServiceWords;
 import bin.Tables.TotalInformation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class LexicalAnalyzer {
@@ -20,12 +20,12 @@ public class LexicalAnalyzer {
         TotalInformation totalInformation = new TotalInformation();
         ArrayList<Token> listToken = new ArrayList();
         for (String word: words) {
-            if (totalInformation.getTableServiceWords().contains(word))
-                listToken.add(totalInformation.getTableServiceWords().getElement(word));
-            else if (totalInformation.getTableLimiters().contains(word))
-                listToken.add(totalInformation.getTableLimiters().getElement(word));
+            if (TableServiceWords.contains(word))
+                listToken.add(TableServiceWords.getElement(word));
+            else if (TableLimiters.contains(word))
+                listToken.add(TableLimiters.getElement(word));
             else if (totalInformation.getTableNumbers().setNumber(word))
-                listToken.add(totalInformation.getTableNumbers().getElement(word));
+                listToken.add(TableNumbers.getElement(word));
             else if (totalInformation.getTableIndices().setIndex(word))
                 listToken.add(totalInformation.getTableIndices().getElement(word));
             else throw new Exception(word + " - не является лексемой данного языка");
@@ -44,7 +44,7 @@ public class LexicalAnalyzer {
 
         //&& bufStrList[i].matches(pattern)
         //String pattern  = ("^(.*)\\W+(.*)$");
-        String delims = ":;,{}()<>/*+-=\n";
+        String delims = ":;,{}()<>/*+-=!%$\n";
         String bufStr;
         comment = false;
 
@@ -78,8 +78,7 @@ public class LexicalAnalyzer {
                     }
                     if (!comment){
                         if (bufStr.endsWith("E") | bufStr.endsWith("e")){
-                            if (bufStr.matches("^[0-9]+(.*)$")){
-
+                            if (bufStr.matches("^[0-9]*(\\.[0-9]+)?[Ee]$")){
                                 String s =stringTokenizer.nextToken();
                                 if (s.endsWith("+")| s.endsWith("-")){
                                     bufStr += s;
@@ -88,13 +87,12 @@ public class LexicalAnalyzer {
                                         bufStr += s;
                                         strings.add(bufStr);
                                     }else {
-                                        throw new Exception("После знакак +/- должно быть число!");
+                                        throw new Exception("После знака +/- должно быть число!");
                                     }
                                 }else {
                                     strings.add(bufStr);
                                     strings.add(s);
                                 }
-
                             }
                             else {
                                 strings.add(bufStr);

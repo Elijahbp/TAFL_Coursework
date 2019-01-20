@@ -38,9 +38,9 @@ public class Index extends Token {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("( ").append(this.getTypeData()).append(" ").append(this.getItem())
-                .append(" ").append(this.getDescriptionsStates()).append(" = ").append(this.getTableIndex())
-                .append(",").append(this.getTokenIndex()).append(")");
+        stringBuilder.append("[ ").append(this.getTypeData().getNameType()).append(" ").append(this.getItem())
+                .append(" ").append(this.getDescriptionsStates()).append(" - ").append(this.getTableIndex())
+                .append(",").append(this.getTokenIndex()).append("]");
         return stringBuilder.toString();
     }
 }

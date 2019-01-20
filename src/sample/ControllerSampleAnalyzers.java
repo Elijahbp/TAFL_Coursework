@@ -2,7 +2,7 @@ package sample;
 
 import bin.Tables.TotalInformation;
 import bin.analyzers.LexicalAnalyzer;
-import bin.rules.Rules;
+import bin.rules.SyntAndSemAnalyzers;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -46,7 +46,7 @@ public class ControllerSampleAnalyzers implements Initializable{
         txtAreaResultListLexem.clear();
         stringBuilder = new StringBuilder();
         try {
-            totalInformation = new Rules().scanner(LexicalAnalyzer.scanner(txtAreaFieldCode.getText()));
+            totalInformation = new SyntAndSemAnalyzers().scanner(LexicalAnalyzer.scanner(txtAreaFieldCode.getText()));
             txtAreaNumbers.setText(totalInformation.getTableNumbers().toString());
             txtAreaIdentificators.setText(totalInformation.getTableIndices().toString());
 
