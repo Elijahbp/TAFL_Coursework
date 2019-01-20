@@ -77,13 +77,14 @@ public class LexicalAnalyzer {
                         }
                     }
                     if (!comment){
-                        if (bufStr.endsWith("E") | bufStr.endsWith("e")){
-                            if (bufStr.matches("^[0-9]*(\\.[0-9]+)?[Ee]$")){
+                        if (bufStr.contains("E") | bufStr.contains("e")){
+                            if (bufStr.matches("^([0-9]+\\.)?[0-9]+[Ee]$")){
+
                                 String s =stringTokenizer.nextToken();
                                 if (s.endsWith("+")| s.endsWith("-")){
                                     bufStr += s;
                                     s = stringTokenizer.nextToken();
-                                    if (s.matches("^[1-9][0-9]*$")){
+                                    if (s.matches("^[0-9]+$")){
                                         bufStr += s;
                                         strings.add(bufStr);
                                     }else {
@@ -94,8 +95,10 @@ public class LexicalAnalyzer {
                                     strings.add(s);
                                 }
                             }
-                            else {
+                            else if ((bufStr.matches("^([0-9]+\\.)?[0-9]+[Ee][0-9]+$"))){
                                 strings.add(bufStr);
+                            }else if ((bufStr.matches("^[0-9]+\\.[Ee][0-9]+$"))){
+                                throw  new Exception("После . должно быть знчение!");
                             }
                         }
                         else if (bufStr.equals("<")){
